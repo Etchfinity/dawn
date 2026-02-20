@@ -56,8 +56,15 @@
           "type": "description",
           "settings": {}
         },
+        "custom_liquid_WQUKiY": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  /* Apple Precision Styling */\n  .apple-gear-data { border-top: 1px solid #121212; margin-top: 2rem; font-family: -apple-system, system-ui, sans-serif; }\n  .gear-row { border-bottom: 1px solid #e5e5e7; }\n  .gear-row summary {\n    list-style: none; padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;\n    font-weight: 700; text-transform: uppercase; font-size: 1.25rem; letter-spacing: -0.02em; color: #121212;\n  }\n  .gear-row summary::-webkit-details-marker { display: none; }\n  .gear-row[open] summary { color: #86868b; }\n\n  /* Minimalist Sliders */\n  .f-track { height: 1px; background: #e5e5e7; position: relative; margin: 1rem 0; }\n  .f-dot { height: 8px; width: 8px; background: #121212; border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); transition: left 0.4s ease; }\n  .f-labels { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; color: #86868b; text-transform: uppercase; }\n\n  /* Clean Tables */\n  .m-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }\n  .m-table th { text-align: left; font-size: 10px; text-transform: uppercase; border-bottom: 1px solid #121212; padding: 12px 0; }\n  .m-table td { padding: 12px 0; border-bottom: 1px solid #f5f5f7; font-size: 14px; color: #424245; }\n</style>\n\n<div class=\"apple-gear-data\">\n  {% assign specs = product.metafields.custom.spec_sheet.value %}\n  {% if specs != blank %}\n\n    <details class=\"gear-row\" open>\n      <summary>The Specs <span>+</span></summary>\n      <div style=\"padding-bottom: 2rem;\">\n        <ul style=\"list-style: none; padding: 0; margin: 0; font-size: 15px; color: #424245; line-height: 1.8;\">\n          {% for feature in specs.features.value %}<li style=\"display: flex; gap: 12px;\"><span style=\"color: #d2d2d7;\">—</span> {{ feature }}</li>{% endfor %}\n        </ul>\n      </div>\n    </details>\n\n    <details class=\"gear-row\">\n      <summary>Fit & Feel <span>+</span></summary>\n      <div style=\"padding: 2rem 0;\">\n        <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;\">\n          {% assign ratings = \"fit_rating,softness_rating,shrinkage_rating,durability_rating\" | split: \",\" %}\n          {% for r in ratings %}\n            {% if specs[r] %}\n              {% assign val = specs[r] | default: 4 %}{% assign pos = val | minus: 1 | times: 100 | divided_by: 6 %}\n              <div>\n                <span style=\"font-size: 10px; font-weight: 900; text-transform: uppercase; color: #121212;\">{{ r | replace: '_rating', '' | replace: '_', ' ' }}</span>\n                <div class=\"f-track\"><div class=\"f-dot\" style=\"left: {{ pos }}%;\"></div></div>\n                <div class=\"f-labels\">\n                  {% case r %}\n                    {% when 'fit_rating' %}<span>Tight</span><span>Loose</span>\n                    {% when 'softness_rating' %}<span>Rough</span><span>Soft</span>\n                    {% when 'shrinkage_rating' %}<span>Less</span><span>More</span>\n                    {% when 'durability_rating' %}<span>Delicate</span><span>Tough</span>\n                  {% endcase %}\n                </div>\n              </div>\n            {% endif %}\n          {% endfor %}\n        </div>\n      </div>\n    </details>\n\n    <details class=\"gear-row\">\n      <summary>Washing <span>+</span></summary>\n      <div style=\"padding-bottom: 2rem;\">\n        <ul style=\"list-style: none; padding: 0; margin: 0; font-size: 15px; color: #424245; line-height: 1.8;\">\n          {% for inst in specs.care_base.value.instructions.value %}<li style=\"display: flex; gap: 12px;\"><span style=\"color: #d2d2d7;\">•</span> {{ inst }}</li>{% endfor %}\n        </ul>\n      </div>\n    </details>\n\n    <details class=\"gear-row\">\n      <summary>Measurements <span>+</span></summary>\n      <div style=\"padding-bottom: 2rem;\">\n        {% assign chart = specs.size_chart.value %}\n        <table class=\"m-table\">\n          <thead><tr><th>Location</th>{% for col in chart.size_columns.value %}<th>{{ col }}</th>{% endfor %}</tr></thead>\n          <tbody>\n            {% for row in chart.size_rows.value %}\n              {% unless row.label contains 'Tolerance' %}\n                <tr><td style=\"font-weight: 700; color: #121212;\">{{ row.label }}</td>{% for val in row.values.value %}<td style=\"text-align: center;\">{{ val }}</td>{% endfor %}</tr>\n              {% endunless %}\n            {% endfor %}\n          </tbody>\n        </table>\n        <p style=\"font-size: 11px; color: #86868b; margin-top: 1.5rem;\">* All items subject to +/- 1\" manufacturing tolerance.</p>\n      </div>\n    </details>\n\n  {% endif %}\n</div>"
+          }
+        },
         "collapsible-row-0": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Materials",
             "icon": "leather",
@@ -67,6 +74,7 @@
         },
         "collapsible-row-1": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Shipping & Returns",
             "icon": "truck",
@@ -76,6 +84,7 @@
         },
         "collapsible-row-2": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Dimensions",
             "icon": "ruler",
@@ -85,6 +94,7 @@
         },
         "collapsible-row-3": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Care Instructions",
             "icon": "heart",
@@ -108,6 +118,7 @@
         "quantity_selector",
         "buy_buttons",
         "description",
+        "custom_liquid_WQUKiY",
         "collapsible-row-0",
         "collapsible-row-1",
         "collapsible-row-2",
@@ -227,23 +238,12 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
-    },
-    "custom_liquid_EQJriY": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<style>\n  /* Apple Precision Styling */\n  .apple-gear-data { border-top: 1px solid #121212; margin-top: 2rem; font-family: -apple-system, system-ui, sans-serif; }\n  .gear-row { border-bottom: 1px solid #e5e5e7; }\n  .gear-row summary {\n    list-style: none; padding: 1.5rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;\n    font-weight: 700; text-transform: uppercase; font-size: 1.25rem; letter-spacing: -0.02em; color: #121212;\n  }\n  .gear-row summary::-webkit-details-marker { display: none; }\n  .gear-row[open] summary { color: #86868b; }\n\n  /* Minimalist Sliders */\n  .f-track { height: 1px; background: #e5e5e7; position: relative; margin: 1rem 0; }\n  .f-dot { height: 8px; width: 8px; background: #121212; border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); transition: left 0.4s ease; }\n  .f-labels { display: flex; justify-content: space-between; font-size: 9px; font-weight: 700; color: #86868b; text-transform: uppercase; }\n\n  /* Clean Tables */\n  .m-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }\n  .m-table th { text-align: left; font-size: 10px; text-transform: uppercase; border-bottom: 1px solid #121212; padding: 12px 0; }\n  .m-table td { padding: 12px 0; border-bottom: 1px solid #f5f5f7; font-size: 14px; color: #424245; }\n</style>\n\n<div class=\"apple-gear-data\">\n  {% assign specs = product.metafields.custom.spec_sheet.value %}\n  {% if specs != blank %}\n\n    <details class=\"gear-row\" open>\n      <summary>The Specs <span>+</span></summary>\n      <div style=\"padding-bottom: 2rem;\">\n        <ul style=\"list-style: none; padding: 0; margin: 0; font-size: 15px; color: #424245; line-height: 1.8;\">\n          {% for feature in specs.features.value %}<li style=\"display: flex; gap: 12px;\"><span style=\"color: #d2d2d7;\">—</span> {{ feature }}</li>{% endfor %}\n        </ul>\n      </div>\n    </details>\n\n    <details class=\"gear-row\">\n      <summary>Fit & Feel <span>+</span></summary>\n      <div style=\"padding: 2rem 0;\">\n        <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;\">\n          {% assign ratings = \"fit_rating,softness_rating,shrinkage_rating,durability_rating\" | split: \",\" %}\n          {% for r in ratings %}\n            {% if specs[r] %}\n              {% assign val = specs[r] | default: 4 %}{% assign pos = val | minus: 1 | times: 100 | divided_by: 6 %}\n              <div>\n                <span style=\"font-size: 10px; font-weight: 900; text-transform: uppercase; color: #121212;\">{{ r | replace: '_rating', '' | replace: '_', ' ' }}</span>\n                <div class=\"f-track\"><div class=\"f-dot\" style=\"left: {{ pos }}%;\"></div></div>\n                <div class=\"f-labels\">\n                  {% case r %}\n                    {% when 'fit_rating' %}<span>Tight</span><span>Loose</span>\n                    {% when 'softness_rating' %}<span>Rough</span><span>Soft</span>\n                    {% when 'shrinkage_rating' %}<span>Less</span><span>More</span>\n                    {% when 'durability_rating' %}<span>Delicate</span><span>Tough</span>\n                  {% endcase %}\n                </div>\n              </div>\n            {% endif %}\n          {% endfor %}\n        </div>\n      </div>\n    </details>\n\n    <details class=\"gear-row\">\n      <summary>Washing <span>+</span></summary>\n      <div style=\"padding-bottom: 2rem;\">\n        <ul style=\"list-style: none; padding: 0; margin: 0; font-size: 15px; color: #424245; line-height: 1.8;\">\n          {% for inst in specs.care_base.value.instructions.value %}<li style=\"display: flex; gap: 12px;\"><span style=\"color: #d2d2d7;\">•</span> {{ inst }}</li>{% endfor %}\n        </ul>\n      </div>\n    </details>\n\n    <details class=\"gear-row\">\n      <summary>Measurements <span>+</span></summary>\n      <div style=\"padding-bottom: 2rem;\">\n        {% assign chart = specs.size_chart.value %}\n        <table class=\"m-table\">\n          <thead><tr><th>Location</th>{% for col in chart.size_columns.value %}<th>{{ col }}</th>{% endfor %}</tr></thead>\n          <tbody>\n            {% for row in chart.size_rows.value %}\n              {% unless row.label contains 'Tolerance' %}\n                <tr><td style=\"font-weight: 700; color: #121212;\">{{ row.label }}</td>{% for val in row.values.value %}<td style=\"text-align: center;\">{{ val }}</td>{% endfor %}</tr>\n              {% endunless %}\n            {% endfor %}\n          </tbody>\n        </table>\n        <p style=\"font-size: 11px; color: #86868b; margin-top: 1.5rem;\">* All items subject to +/- 1\" manufacturing tolerance.</p>\n      </div>\n    </details>\n\n  {% endif %}\n</div>",
-        "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
     }
   },
   "order": [
     "main",
     "image-with-text",
     "multicolumn",
-    "related-products",
-    "custom_liquid_EQJriY"
+    "related-products"
   ]
 }
